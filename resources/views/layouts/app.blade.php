@@ -9,10 +9,50 @@
 <body class="d-flex flex-column min-vh-100">
 
     <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
-        </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ route('student.index') }}">
+            <img src="assets/images/logo-m.jpg" alt="Logo" width="32" height="32" class="rounded-circle me-2">
+            {{ config('app.name') }}
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Home / Liste des étudiants -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('student.index') ? 'active' : '' }}" href="{{ route('student.index') }}">
+                        <i class="bi bi-people"></i> Étudiants
+                    </a>
+                </li>
+                <!-- Créer un étudiant -->
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('student.create') ? 'active' : '' }}" href="{{ route('student.create') }}">
+                        <i class="bi bi-person-plus"></i> Ajouter
+                    </a>
+                </li>
+                
+            </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Langue -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-translate"></i> Langue
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Français</a></li>
+                        <li><a class="dropdown-item" href="#">Anglais</a></li>
+                    </ul>
+                </li>
+                <!-- Student / Logout -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
     </header>
 
     <div class="container flex-grow-1">
