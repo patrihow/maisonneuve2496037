@@ -3,34 +3,63 @@
 @section('title', 'Liste des étudiants')
 
 @section('content')
-    <h1 class="mt-5">Liste des étudiants</h1>
-    <table class="table">
-        <thead>
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h1 class="h3 mb-0"><i class="bi bi-people"></i> Liste des étudiants</h1>
+    <a href="{{ route('student.create') }}" class="btn btn-primary">
+        <i class="bi bi-person-plus"></i> Ajouter un étudiant
+    </a>
+</div>
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle shadow-sm">
+        <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
+                <th>#</th>
+                <th>Nom</th>
                 <th>Email</th>
-                <th>Acciones</th>
+                <th>Date de naissance</th>
+                <th>Ville</th>
+                <th class="text-end">Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($students as $student)
+            @forelse($students as $student)
                 <tr>
                     <td>{{ $student->id }}</td>
-                    <td>{{ $student->name }}</td>
+                    <td class="fw-semibold">{{ $student->name }}</td>
                     <td>{{ $student->email }}</td>
-                    <td>
-                        <a href="{{ route('student.show', $student->id) }}" class="btn btn-info">Ver</a>
-                        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-warning">Editar</a>
-                        <form action="{{ route('student.destroy', $student->id) }}" method="POST" style="display:inline;">
+                    <td>{{ \Carbon\Carbon::parse($student->birthdate)->format('d/m/Y') }}</td>
+                    <td>{{ optional($student->city)->name ?? '-' }}</td>
+                    <td class="text-end">
+                        <a href="{{ route('student.show', $student->id) }}" class="btn btn-sm btn-outline-info me-1" title="Voir">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-outline-warning me-1" title="Éditer">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{ route('student.destroy', $student->id) }}" method="POST" class="d-inline"
+                              onsubmit="return confirm('Voulez-vous vraiment supprimer cet étudiant ?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                            <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center text-muted">Aucun étudiant trouvé.</td>
+                </tr>
+            @endforelse
         </tbody>
     </table>
-    {{ $students->links() }} 
+</div>
+
+<div class="d-flex justify-content-center">
+     {{ $students->links('pagination::bootstrap-5') }} 
+</div>
 @endsection

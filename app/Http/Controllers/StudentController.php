@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\City;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
     public function index() {
-        $students = Student::select('id', 'name', 'email', 'birthdate', 'city_id')->orderby('name')->paginate(4);
-  
-        return view('students.index', ['students' => $students]);
-    }
+         $students = Student::with('city') 
+        ->select('id', 'name', 'email', 'birthdate', 'city_id')
+        ->orderBy('name')
+        ->paginate(4);
+
+    return view('students.index', ['students' => $students]);
+}
     public function create() {
         $cities = \App\Models\City::all();
         return view('students.create', compact('cities'));
