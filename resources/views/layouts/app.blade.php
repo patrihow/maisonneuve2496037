@@ -47,7 +47,10 @@
                         <li><a class="dropdown-item" href="#">Anglais</a></li>
                     </ul>
                 </li>
-                <!-- Student / Logout -->
+                <!-- Student Login/Logout -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
                 </li>

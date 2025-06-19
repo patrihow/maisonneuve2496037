@@ -13,10 +13,15 @@ class Student extends Model
     'email',
     'birthdate', 
     'city_id',
-    'password',
     ];
     public function city()
     {
         return $this->belongsTo(City::class);
     }
+
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
 }

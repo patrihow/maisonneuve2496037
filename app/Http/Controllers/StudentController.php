@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth');
+    }
+        
     public function index() {
          $students = Student::with('city') 
         ->select('id', 'name', 'email', 'birthdate', 'city_id')

@@ -15,16 +15,15 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('birthdate');
-            $table->string('city_id')->constrained('cities');
-            $table->string('password');
-            $table->rememberToken();
-
+            $table->date('birthdate');
+            $table->unsignedBigInteger('city_id');
             $table->timestamps();
 
+            // Foreign keys
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 
