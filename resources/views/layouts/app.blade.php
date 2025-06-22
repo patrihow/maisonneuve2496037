@@ -34,6 +34,21 @@
                         <i class="bi bi-person-plus"></i> Ajouter
                     </a>
                 </li>
+
+                <!-- Forums -->
+                 <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('articles.*') ? 'active' : '' }}" href="{{ route('articles.index') }}">
+        <i class="bi bi-chat-dots"></i> {{ __('forum.forum') }}
+    </a>
+</li>
+
+<!-- Documents -->
+ <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('documents.*') ? 'active' : '' }}" href="{{ route('documents.index') }}">
+        <i class="bi bi-folder2-open"></i> {{ __('forum.documents') }}
+    </a>
+</li>
+
                 
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -43,17 +58,26 @@
                         <i class="bi bi-translate"></i> Langue
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Français</a></li>
-                        <li><a class="dropdown-item" href="#">Anglais</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang.change', ['locale' => 'fr']) }}">Français</a></li>
+                        <li><a class="dropdown-item" href="{{ route('lang.change', ['locale' => 'en']) }}">Anglais</a></li>
                     </ul>
                 </li>
                 <!-- Student Login/Logout -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
-                </li>
+                @guest
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+    </li>
+@else
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="bi bi-box-arrow-right"></i> Déconnexion
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        </form>
+    </li>
+@endguest
+
             </ul>
         </div>
     </div>
