@@ -14,12 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
-        $table->id();
-        $table->string('title_en');
-        $table->string('title_fr');
-        $table->string('file_path');
-        $table->foreignId('user_id')->constrained()->onDelete('cascade');
-        $table->timestamps();
+            $table->id();
+            $table->string('title_en');
+            $table->string('title_fr');
+            $table->text('content_en'); 
+            $table->text('content_fr'); 
+            $table->string('file_path');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

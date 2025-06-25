@@ -19,7 +19,7 @@ use App\Http\Controllers\DocumentController;
 |
 */
 // Routes pour changer la langue de l'app
-Route::get('/lang/{locale}', [LocaleController::class, 'change'])->name('lang.change');
+Route::get('/lang/{locale}', [LocaleController::class, 'index'])->name('lang.change');
 
 // Routes de gestion des utilisateurs
 Route::get('/register', [UserController::class, 'create'])->name('user.create');

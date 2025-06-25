@@ -18,9 +18,17 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {   
-        // si l'user choisit une langue, sinon on prend la langue par défaut
-        $locale = Session::get('locale', config('app.locale'));
+        // Vérifier si la locale est définie dans la session
+        if (Session::has('locale')) {
+            $locale = Session::get('locale');
+        } else {
+            // Définir la locale par défaut si elle n'est pas définie
+            $locale = config('app.locale', 'en');
+        }
+
+        // Définir la locale de l'application
         App::setLocale($locale);
+
         return $next($request);
     }
 }

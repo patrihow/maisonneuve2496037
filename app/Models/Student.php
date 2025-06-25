@@ -13,6 +13,7 @@ class Student extends Model
     'email',
     'birthdate', 
     'city_id',
+    'user_id',
     ];
     public function city()
     {

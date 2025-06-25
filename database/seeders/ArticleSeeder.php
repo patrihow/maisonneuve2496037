@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\City;
 
-class CitySeeder extends Seeder
+use App\Models\Article;
+use App\Models\User;
+
+class ArticleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +17,8 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        City::factory()->count(15)->create();
+        Article::factory()->count(100)->create([
+            'user_id' => User::inRandomOrder()->first()->id
+        ]);
     }
 }
